@@ -19,11 +19,12 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             //carManager.Add(new Car {Name="A8",BrandId=1,ColorId=1,DailyPrice=500,ModelYear=2018,Description="Sunrooflu full + full paket" });
 
+            Console.WriteLine(carManager.GetById(3).Name);
 
-            foreach (var car in carManager.GetCarDetails())
-            {
-                Console.WriteLine(car.CarId + " " + car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
-            }
+            //foreach (var car in carManager.GetCarDetails())
+            //{
+            //    Console.WriteLine(car.CarId + " " + car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
+            //}
 
         }
 

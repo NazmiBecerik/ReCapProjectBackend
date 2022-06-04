@@ -1,4 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,27 +21,23 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0 && car.Name.Length >= 2)
-            {
-                _carDal.Add(car);
-                return new SuccessResult();
-            }
-            return new ErrorResult();
-            
-            
+            ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAddIsSuccess);
         }
 
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarDeleteIsSuccess);
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-          return new SuccessDataResult<List<Car>>( _carDal.GetAll());
+          return new SuccessDataResult<List<Car>>( _carDal.GetAll(),Messages.GetAllCars);
         }
 
         public IDataResult<Car> GetById(int id)
@@ -47,7 +47,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),Messages.GetCarsWithDetails);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
@@ -60,10 +60,15 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
+        //public IDataResult<CarDetailDto> GetCarWithDetails()
+        //{
+        //    return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetails());
+        //}
+
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarUpdateIsSuccess);
         }
     }
 }

@@ -6,11 +6,12 @@ namespace Business.Constants
 {
     public static class Messages
     {
-        public static string CarAddIsSuccess="Car is Added ! ";
-        public static string CarDeleteIsSuccess = "Car is Deleted ! ";
-        public static string CarUpdateIsSuccess = "Car is Updated ! ";
-        public static string GetAllCars = "Cars is listed";
-        public static string ProcessUnsuccessful = "Process is unsuccessful !";
-        public static string GetCarsWithDetails = "Cars listed with details !";
+        public static string CarAdded="Araba eklendi";
+        public static string CarDeleted = "Araba silindi";
+        public static string CarUpdated = "Araba güncellendi ! ";
+        public static string ProcessUnsuccessful = "İşlem başarısız!";
+        internal static string CarImageAdded = "Araba resmi eklendi";
+        internal static string CarImageDeleted = "Araba resmi silindi";
+        internal static string Listed = "Listelendi";
     }
 }
